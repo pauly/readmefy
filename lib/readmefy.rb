@@ -22,6 +22,9 @@ class Readmefy
         end
       end
       readme.write comments
+      if mode == 'w'
+        readme.write "\n\nStill a work in progress, README auto created by https://github.com/pauly/readmefy\n"
+      end
     }
     files # return
   end

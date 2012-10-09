@@ -1,5 +1,6 @@
 ===./Rakefile===
 ===./README.md===
 ===./readmefy.gemspec===
-/readmefy.rb===
-===./test/test_readmefy.rb===
+
+
+Still a work in progress, README auto created by https://github.com/pauly/readmefy
