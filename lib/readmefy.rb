@@ -2,7 +2,7 @@ require 'readmefy/string'
 
 # Readmefy
 #
-# Usage: gem install readmefy
+# Usage: sudo gem install readmefy
 # readmefy .
 
 class Readmefy
@@ -27,7 +27,7 @@ class Readmefy
   end
   def self.extract_comments f
     content = "===" + f + "===\n"
-    content += IO.read( f )
+    # content << IO.read( f ).match( /(^\s*(#|\*).*\n)+/ )
     content || ''
   end
 end
