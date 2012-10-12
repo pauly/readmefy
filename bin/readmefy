@@ -1,3 +1,3 @@
 #!/usr/bin/ruby
 require 'readmefy'
-Readmefy.recurse ARGV[0]
+Readmefy.go ARGV[0]

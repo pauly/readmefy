@@ -1,8 +1,10 @@
-class String # monkey patch the string class
+# Still not clear if I should be monkey patching the string class like this
+# but I want to be able to do filename.is_excluded? filename.directory? etc
+# where filename is a string, not a file handle
+
+class String
   def is_excluded?
-    #if the file/folder name meets a certian criteria we dont want, exclude it
-    #this exclusion by name can later be developed by bringing in values from a txt file and add them to the array
-    $excluded = ['test','abc']
+    $excluded = [ 'README.md' ] # if the file/folder name meets a certian criteria we dont want, exclude it
     if self =~ /^\./
       return true
     elsif File.symlink? self
@@ -17,8 +19,5 @@ class String # monkey patch the string class
   end
   def ok?
     return ! self.is_excluded?
-  end
-  def extract_comments
-    # get file contents, extract stuff for the readme
   end
 end
