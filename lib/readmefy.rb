@@ -50,8 +50,14 @@ class Readmefy
   end
   def self.extract_comments f
     matches = IO.read( f ).scan( /((^\s*#\s)+(.*?))+/ )
+    content = ""
     if ! matches.empty?
-      content = "== " + f + " ==\n"
+      # content = "== " + f + " ==\n"
+      content += f + "\n"
+      for i in 0...f.length
+        content += "="
+      end
+      content += "\n"
       for i in 0...matches.length
         content << matches[i][2] + "\n"
       end
