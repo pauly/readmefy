@@ -6,29 +6,44 @@
 # readmefy .
 
 class Readmefy
+
   def self.go dir = '.'
     readme = File.new './README.md', 'w'
     readme.write self.recurse dir
     readme.write "Still a work in progress, README auto created by https://github.com/pauly/readmefy\n"
     true
   end
+
   def self.directory? foo
     return File.directory? foo
   end
+
   def self.ok? foo
     if foo =~ /^\./
       return false
     elsif File.symlink? foo
       return false
-    elseif [ "README.md" ].include? foo.to_s
+    elsif [ "README.md" ].include? foo.to_s
       puts 'excluding ' + foo # never gets here
       return false
-    elseif "README.md" == foo.to_s
+    elsif "README.md" == foo.to_s
       puts 'excluding ' + foo + ' by ==' # never gets here either
       return false
     end
     return true
   end
+
+  def self.binary? name
+    if ! self.directory? name
+      open name do |f|
+        while ( b = f.read( 256) ) do
+          return true if b[ "\0"]
+        end
+      end
+    end
+    false
+  end
+
   def self.recurse dir = '.'
     comments = ''
     files = Dir.entries dir
@@ -38,7 +53,7 @@ class Readmefy
         path = dir + '/' + f
         if self.directory? path
           subdirs.push path
-        else
+        elsif ! self.binary? path
           comments += self.extract_comments path
         end
       end
@@ -48,16 +63,14 @@ class Readmefy
     end
     comments
   end
+
   def self.extract_comments f
-    matches = IO.read( f ).scan( /((^\s*#\s)+(.*?))+/ )
+    p 'extract comments from ' + f
+    matches = IO.read( f.to_s ).scan( /((^\s*#\s)+(.+))+/ )
     content = ""
     if ! matches.empty?
-      # content = "== " + f + " ==\n"
-      content += f + "\n"
-      for i in 0...f.length
-        content += "="
-      end
-      content += "\n"
+      content = "## " + f + "\n"
+      p matches
       for i in 0...matches.length
         content << matches[i][2] + "\n"
       end
