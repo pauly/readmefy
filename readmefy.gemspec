@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
   s.date = Time.now.strftime '%Y-%m-%d'
   s.summary = 'Auto readmefier'
   s.description = 'Auto create a README file'
-  s.authors = ['Paul Clarke']
+  s.authors = [ 'Paul Clarke' ]
   s.email = 'pauly@clarkeology.com'
   s.files = [ 'lib/readmefy.rb' ]
   s.homepage = 'http://www.clarkeology.com/wiki/readmefy'
